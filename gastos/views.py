@@ -29,3 +29,31 @@ def agregar_gasto(request):
     gastos = Gasto.objects.all()
 
     return render(request, 'gastos/agregar_gasto.html', {'gastos': gastos})
+
+
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from .models import Gasto, Ingreso
+
+def agregar_ingreso(request):
+    if request.method == 'POST':
+        fecha = request.POST.get('fecha')
+        fuente = request.POST.get('fuente')
+        monto = request.POST.get('monto')
+        descripcion = request.POST.get('descripcion')
+
+        # Guardar el ingreso en la base de datos
+        Ingreso.objects.create(
+            fecha=fecha,
+            fuente=fuente,
+            monto=monto,
+            descripcion=descripcion
+        )
+
+        return HttpResponseRedirect('/ingresos')
+
+    # Obtener todos los ingresos
+    ingresos = Ingreso.objects.all()
+
+    return render(request, 'gastos/agregar_ingreso.html', {'ingresos': ingresos})
+
