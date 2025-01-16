@@ -9,64 +9,70 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Fondo original */
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
         h1, h2 {
             text-align: center;
-            color: #00d1ff;
+            color: #00d1ff; /* Color original */
             margin-bottom: 20px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
         form {
             max-width: 500px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 30px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
+            padding: 30px;
+            border-radius: 15px; /* Bordes redondeados */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombras suaves */
+            backdrop-filter: blur(10px); /* Desenfoque */
         }
         label {
             font-weight: bold;
             display: block;
-            margin-top: 10px;
-            color: #00d1ff;
+            margin-bottom: 8px;
+            color: #00d1ff; /* Color original */
         }
-        input, textarea {
+        input, select, textarea {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
             margin-bottom: 15px;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
+            border: 1px solid #ccc; /* Bordes sutiles */
+            border-radius: 8px; /* Bordes redondeados */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff; /* Texto blanco */
             font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra suave */
         }
-        input:focus, textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 5px #00d1ff;
+            background: rgba(255, 255, 255, 0.3); /* Fondo más claro al enfocar */
+            box-shadow: 0 0 10px #00d1ff; /* Resplandor al enfocar */
+        }
+        textarea {
+            resize: none;
+            height: 80px; /* Altura para las descripciones */
         }
         button {
-            background: linear-gradient(90deg, #00d1ff, #00ff99);
+            background: linear-gradient(90deg, #00d1ff, #0073e6); /* Gradiente original */
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border-radius: 8px; /* Bordes redondeados */
             cursor: pointer;
             font-weight: bold;
-            transition: background 0.3s ease-in-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Sombra suave */
+            width: 100%; /* Botón ancho */
         }
         button:hover {
-            background: linear-gradient(90deg, #00ff99, #00d1ff);
-            box-shadow: 0 4px 10px rgba(0, 209, 255, 0.5);
+            background: linear-gradient(90deg, #0073e6, #00d1ff); /* Gradiente invertido */
+            box-shadow: 0 8px 25px rgba(0, 209, 255, 0.5); /* Resplandor al pasar */
         }
         table {
             width: 90%;
@@ -75,21 +81,21 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra suave */
         }
         th, td {
             padding: 15px;
             text-align: left;
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff; /* Texto blanco */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Bordes sutiles */
         }
         th {
-            background: rgba(0, 209, 255, 0.3);
+            background: rgba(0, 209, 255, 0.3); /* Fondo original */
             font-size: 16px;
             text-transform: uppercase;
         }
         tr:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1); /* Resaltado al pasar */
         }
         tr:last-child td {
             border-bottom: none;
@@ -105,21 +111,30 @@
     <h1>Agregar Gasto</h1>
     <form method="POST">
         {% csrf_token %}
+        
         <label for="fecha">Fecha</label>
         <input type="date" id="fecha" name="fecha" required>
-
+    
         <label for="categoria">Categoría</label>
-        <input type="text" id="categoria" name="categoria" required>
-
+        <select id="categoria" name="categoria" required>
+            <option value="Alimentos">Alimentos</option>
+            <option value="Bebidas">Bebidas</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Salud">Salud</option>
+            <option value="Entretenimiento">Entretenimiento</option>
+            <option value="Otros">Otros</option>
+        </select>
+        
         <label for="monto">Monto</label>
         <input type="number" step="0.01" id="monto" name="monto" required>
-
+        
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" name="descripcion"></textarea>
-
+        <textarea id="descripcion" name="descripcion" placeholder="Agrega detalles adicionales (opcional)"></textarea>
+        
         <button type="submit">Guardar</button>
     </form>
-
+    
     <h2>Lista de Gastos</h2>
     <table>
         <thead>
@@ -147,4 +162,3 @@
     </table>
 </body>
 </html>
-

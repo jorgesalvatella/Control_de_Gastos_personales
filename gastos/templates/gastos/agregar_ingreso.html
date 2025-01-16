@@ -24,54 +24,63 @@
             text-shadow: 2px 2px 10px rgba(0, 212, 255, 0.5);
         }
         form {
-            max-width: 500px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            margin-bottom: 30px;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-            color: #00d4ff;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 10px #00d4ff;
-        }
-        button {
-            background: linear-gradient(90deg, #00d4ff, #009688);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s ease-in-out;
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
-        }
-        button:hover {
-            background: linear-gradient(90deg, #009688, #00d4ff);
-            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.7);
-        }
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
+    padding: 30px;
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombras elegantes */
+    backdrop-filter: blur(10px); /* Desenfoque */
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #00d4ff; /* Color futurista */
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px; /* Bordes redondeados */
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    color: #ffffff;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3); /* Fondo más claro al enfocar */
+    box-shadow: 0 0 10px #00d4ff; /* Resplandor */
+}
+
+textarea {
+    resize: none;
+    height: 80px; /* Altura para las descripciones */
+}
+
+button {
+    background: linear-gradient(90deg, #00d4ff, #009688); /* Gradiente futurista */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5); /* Sombra suave */
+    width: 100%; /* Botón ancho */
+}
+
+button:hover {
+    background: linear-gradient(90deg, #009688, #00d4ff); /* Gradiente invertido */
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.7); /* Resplandor al pasar */
+}
+
         table {
             width: 90%;
             border-collapse: collapse;
@@ -111,18 +120,25 @@
         {% csrf_token %}
         <label for="fecha">Fecha</label>
         <input type="date" id="fecha" name="fecha" required>
-
+    
         <label for="fuente">Fuente</label>
-        <input type="text" id="fuente" name="fuente" required>
-
+        <select id="fuente" name="fuente" required>
+            <option value="Salario">Salario</option>
+            <option value="Negocios">Negocios</option>
+            <option value="Inversiones">Inversiones</option>
+            <option value="Regalos">Regalos</option>
+            <option value="Otros">Otros</option>
+        </select>
+    
         <label for="monto">Monto</label>
         <input type="number" step="0.01" id="monto" name="monto" required>
-
+    
         <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" name="descripcion"></textarea>
-
+        <textarea id="descripcion" name="descripcion" placeholder="Agrega detalles adicionales (opcional)"></textarea>
+    
         <button type="submit">Guardar</button>
     </form>
+    
 
     <h2>Lista de Ingresos</h2>
     <table>
