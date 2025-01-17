@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Ingreso</title>
     <style>
-        /* 🚀 Reset de estilos y optimización */
+        /* 🚀 Reset de estilos */
         * {
             margin: 0;
             padding: 0;
@@ -96,77 +96,46 @@
             box-shadow: 0 8px 25px rgba(0, 212, 255, 0.7);
         }
 
-        /* ✅ Sección de la tabla */
+        /* ✅ Contenedor de tarjetas */
         .table-container {
             width: 100%;
             max-width: 900px;
             margin-top: 15px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Tarjetas con bordes uniformes */
+        .tarjeta {
             background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        th, td {
-            padding: 12px;
-            text-align: left;
-            color: #ffffff;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        .tarjeta div {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* 📌 Bordes uniformes */
         }
 
-        th {
-            background: rgba(0, 212, 255, 0.3);
-            font-size: 14px;
-            text-transform: uppercase;
+        .tarjeta div:last-child {
+            border-bottom: none; /* 📌 Eliminar borde inferior del último campo */
         }
 
-        tr:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
+        .tarjeta span {
+            font-weight: bold;
+            color: #00d4ff;
         }
 
         /* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
         @media (max-width: 1024px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
-                width: 100%;
-            }
-
-            thead {
-                display: none; /* Oculta encabezados SOLO en tablets y móviles */
-            }
-
-            tr {
-                margin-bottom: 10px;
-                background: rgba(255, 255, 255, 0.1);
-                padding: 10px;
-                border-radius: 10px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            }
-
-            td {
-                display: flex;
-                justify-content: space-between;
-                padding: 8px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-                font-size: 12px;
-            }
-
-            td:last-child {
-                border-bottom: none;
-            }
-
-            td::before {
-                content: attr(data-label);
-                font-weight: bold;
-                color: #00d4ff;
+            .tarjeta {
+                width: 95%;
+                max-width: none;
             }
         }
     </style>
@@ -199,30 +168,17 @@
 
     <h2>Lista de Ingresos</h2>
     <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha del Ingreso</th>
-                    <th>Fecha de Registro</th>
-                    <th>Fuente</th>
-                    <th>Monto</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ingreso in ingresos %}
-                <tr>
-                    <td data-label="Fecha del Ingreso">{{ ingreso.fecha }}</td>
-                    <td data-label="Fecha de Registro">{{ ingreso.fecha_registro }}</td>
-                    <td data-label="Fuente">{{ ingreso.fuente }}</td>
-                    <td data-label="Monto">{{ ingreso.monto }}</td>
-                    <td data-label="Descripción">{{ ingreso.descripcion }}</td>
-                </tr>
-                {% empty %}
-                <tr><td colspan="5">No hay ingresos registrados.</td></tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for ingreso in ingresos %}
+        <div class="tarjeta">
+            <div><span>Fecha del Ingreso:</span> <p>{{ ingreso.fecha }}</p></div>
+            <div><span>Fecha de Registro:</span> <p>{{ ingreso.fecha_registro }}</p></div>
+            <div><span>Fuente:</span> <p>{{ ingreso.fuente }}</p></div>
+            <div><span>Monto:</span> <p>{{ ingreso.monto }}</p></div>
+            <div><span>Descripción:</span> <p>{{ ingreso.descripcion }}</p></div>
+        </div>
+        {% empty %}
+        <p>No hay ingresos registrados.</p>
+        {% endfor %}
     </div>
 </body>
 </html>
