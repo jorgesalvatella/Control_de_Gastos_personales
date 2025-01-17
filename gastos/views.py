@@ -6,6 +6,7 @@ from .models import Gasto, Ingreso
 def index(request):
     return HttpResponse("<h1>Bienvenido a la aplicación de gestión de gastos e ingresos</h1>")
 
+# Vista para agregar un gasto
 def agregar_gasto(request):
     if request.method == 'POST':
         fecha = request.POST.get('fecha')
@@ -30,9 +31,8 @@ def agregar_gasto(request):
 
         return HttpResponseRedirect('/')
 
-    # Obtener todos los gastos para mostrar en la página
-    gastos = Gasto.objects.all()
-    print(f"Gastos obtenidos: {gastos}")  # Depuración para confirmar
+    # Obtener solo los últimos 10 gastos
+    gastos = Gasto.objects.all().order_by('-fecha')[:10]
 
     return render(request, 'gastos/agregar_gasto.html', {'gastos': gastos})
 
@@ -60,8 +60,10 @@ def agregar_ingreso(request):
         )
         return redirect('/ingresos/')  # Redirige al listado de ingresos
 
-    # Renderizar el formulario de ingresos
-    ingresos = Ingreso.objects.all()  # Obtener todos los ingresos para mostrar
+    # Obtener solo los últimos 10 ingresos
+    ingresos = Ingreso.objects.all().order_by('-fecha')[:10]
+
     return render(request, 'gastos/agregar_ingreso.html', {'ingresos': ingresos})
+
 
 

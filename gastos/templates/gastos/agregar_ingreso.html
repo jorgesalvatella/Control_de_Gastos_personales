@@ -1,115 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Ingreso</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* 🚀 Reset de estilos y optimización */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100vh;
+            max-width: 100vw;
+            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             color: #ffffff;
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding: 10px;
         }
+
         h1, h2 {
             text-align: center;
             color: #00d4ff;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-shadow: 2px 2px 10px rgba(0, 212, 255, 0.5);
+            width: 100%;
         }
+
         form {
-    max-width: 500px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.1); /* Fondo translúcido */
-    padding: 30px;
-    border-radius: 15px; /* Bordes redondeados */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombras elegantes */
-    backdrop-filter: blur(10px); /* Desenfoque */
-}
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            margin-bottom: 15px;
+        }
 
-label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-    color: #00d4ff; /* Color futurista */
-}
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 6px;
+            color: #00d4ff;
+            font-size: 14px;
+        }
 
-input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: none;
-    border-radius: 8px; /* Bordes redondeados */
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-    color: #ffffff;
-    font-size: 14px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #ffffff;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
 
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.3); /* Fondo más claro al enfocar */
-    box-shadow: 0 0 10px #00d4ff; /* Resplandor */
-}
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px #00d4ff;
+        }
 
-textarea {
-    resize: none;
-    height: 80px; /* Altura para las descripciones */
-}
+        textarea {
+            resize: none;
+            height: 70px;
+        }
 
-button {
-    background: linear-gradient(90deg, #00d4ff, #009688); /* Gradiente futurista */
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px; /* Bordes redondeados */
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5); /* Sombra suave */
-    width: 100%; /* Botón ancho */
-}
+        button {
+            background: linear-gradient(90deg, #00d4ff, #009688);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
+            width: 100%;
+            font-size: 14px;
+        }
 
-button:hover {
-    background: linear-gradient(90deg, #009688, #00d4ff); /* Gradiente invertido */
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.7); /* Resplandor al pasar */
-}
+        button:hover {
+            background: linear-gradient(90deg, #009688, #00d4ff);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.7);
+        }
+
+        /* ✅ Sección de la tabla */
+        .table-container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 15px;
+        }
 
         table {
-            width: 90%;
+            width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            overflow: hidden;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
         }
+
         th, td {
-            padding: 15px;
+            padding: 12px;
             text-align: left;
             color: #ffffff;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
+
         th {
             background: rgba(0, 212, 255, 0.3);
-            font-size: 16px;
+            font-size: 14px;
             text-transform: uppercase;
         }
+
         tr:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+
         tr:last-child td {
             border-bottom: none;
         }
-        @media (max-width: 768px) {
-            form, table {
-                width: 95%;
+
+        /* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
+        @media (max-width: 1024px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+
+            thead {
+                display: none; /* Oculta encabezados SOLO en tablets y móviles */
+            }
+
+            tr {
+                margin-bottom: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            }
+
+            td {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                font-size: 12px;
+            }
+
+            td:last-child {
+                border-bottom: none;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #00d4ff;
             }
         }
     </style>
@@ -118,7 +175,8 @@ button:hover {
     <h1>Agregar Ingreso</h1>
     <form method="POST">
         {% csrf_token %}
-        <label for="fecha">Fecha</label>
+        
+        <label for="fecha">Fecha del Ingreso</label>
         <input type="date" id="fecha" name="fecha" required>
     
         <label for="fuente">Fuente</label>
@@ -129,41 +187,44 @@ button:hover {
             <option value="Regalos">Regalos</option>
             <option value="Otros">Otros</option>
         </select>
-    
+        
         <label for="monto">Monto</label>
         <input type="number" step="0.01" id="monto" name="monto" required>
-    
+        
         <label for="descripcion">Descripción</label>
         <textarea id="descripcion" name="descripcion" placeholder="Agrega detalles adicionales (opcional)"></textarea>
-    
+        
         <button type="submit">Guardar</button>
     </form>
-    
 
     <h2>Lista de Ingresos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Fuente</th>
-                <th>Monto</th>
-                <th>Descripción</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ingreso in ingresos %}
-            <tr>
-                <td>{{ ingreso.fecha }}</td>
-                <td>{{ ingreso.fuente }}</td>
-                <td>{{ ingreso.monto }}</td>
-                <td>{{ ingreso.descripcion }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">No hay ingresos registrados.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha del Ingreso</th>
+                    <th>Fecha de Registro</th>
+                    <th>Fuente</th>
+                    <th>Monto</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ingreso in ingresos %}
+                <tr>
+                    <td data-label="Fecha del Ingreso">{{ ingreso.fecha }}</td>
+                    <td data-label="Fecha de Registro">{{ ingreso.fecha_registro }}</td>
+                    <td data-label="Fuente">{{ ingreso.fuente }}</td>
+                    <td data-label="Monto">{{ ingreso.monto }}</td>
+                    <td data-label="Descripción">{{ ingreso.descripcion }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="5">No hay ingresos registrados.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+
+
