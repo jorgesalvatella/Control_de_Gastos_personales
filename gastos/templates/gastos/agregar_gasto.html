@@ -213,3 +213,11 @@
 </body>
 </html>
 
+<script>
+    window.onload = function() {
+        if (window.performance && window.performance.navigation.type === 2) {
+            // El usuario presionó "Atrás", recargamos la página para evitar caché
+            location.reload();
+        }
+    };
+</script>

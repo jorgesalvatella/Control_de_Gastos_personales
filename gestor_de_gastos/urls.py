@@ -1,14 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
-
-# ✅ Redirigir "/" a "gastos/"
-def home_redirect(request):
-    return redirect('agregar_gasto')  # O usa 'agregar_ingreso'
+from gastos.views import home  # Importar la vista de Home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('gastos/', include('gastos.urls')),
-    path('ingresos/', include('ingresos.urls')),
-    path('', home_redirect, name='home'),  # 🔹 Redirige "/" a gastos
+    path('', home, name='home'),  # ✅ Página de Inicio
+    path('gastos/', include('gastos.urls')),  # ✅ URLs de Gastos
+    path('ingresos/', include('ingresos.urls')),  # ✅ URLs de Ingresos
 ]
+
