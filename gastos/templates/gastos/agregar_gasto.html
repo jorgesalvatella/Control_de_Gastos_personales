@@ -131,6 +131,26 @@
             color: #00d1ff;
         }
 
+        /* ✅ Botón de eliminación */
+        .btn-eliminar {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-eliminar:hover {
+            background: darkred;
+        }
+
         /* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
         @media (max-width: 1024px) {
             .tarjeta {
@@ -177,6 +197,14 @@
             <div><span>Categoría:</span> <p>{{ gasto.categoria }}</p></div>
             <div><span>Monto:</span> <p>{{ gasto.monto }}</p></div>
             <div><span>Descripción:</span> <p>{{ gasto.descripcion }}</p></div>
+
+            <!-- Botón de eliminación SOLO para administradores -->
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'eliminar_gasto' gasto.id %}" class="btn-eliminar"
+                   onclick="return confirm('¿Estás seguro de que deseas eliminar este gasto?');">
+                   🗑 Eliminar
+                </a>
+            {% endif %}
         </div>
         {% empty %}
         <p>No hay gastos registrados.</p>

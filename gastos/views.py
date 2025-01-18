@@ -65,5 +65,36 @@ def agregar_ingreso(request):
 
     return render(request, 'gastos/agregar_ingreso.html', {'ingresos': ingresos})
 
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Gasto
+
+# Verifica si el usuario es administrador
+def es_admin(user):
+    return user.is_authenticated and user.is_staff
+
+@login_required
+@user_passes_test(es_admin)
+def eliminar_gasto(request, gasto_id):
+    gasto = get_object_or_404(Gasto, id=gasto_id)
+    gasto.delete()
+    return redirect('/')  # Redirige a la página principal después de eliminar
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .models import Ingreso
+
+# ✅ Función para verificar si el usuario es administrador
+def es_admin(user):
+    return user.is_authenticated and user.is_staff
+
+# ✅ Vista para eliminar un ingreso (solo para administradores)
+@login_required
+@user_passes_test(es_admin)
+def eliminar_ingreso(request, ingreso_id):
+    ingreso = get_object_or_404(Ingreso, id=ingreso_id)
+    ingreso.delete()
+    return redirect('agregar_ingreso')  # Redirige a la lista de ingresos después de eliminar
 
 

@@ -119,16 +119,36 @@
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* 📌 Bordes uniformes */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .tarjeta div:last-child {
-            border-bottom: none; /* 📌 Eliminar borde inferior del último campo */
+            border-bottom: none;
         }
 
         .tarjeta span {
             font-weight: bold;
             color: #00d4ff;
+        }
+
+        /* ✅ Botón de eliminación */
+        .btn-eliminar {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-eliminar:hover {
+            background: darkred;
         }
 
         /* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
@@ -175,6 +195,14 @@
             <div><span>Fuente:</span> <p>{{ ingreso.fuente }}</p></div>
             <div><span>Monto:</span> <p>{{ ingreso.monto }}</p></div>
             <div><span>Descripción:</span> <p>{{ ingreso.descripcion }}</p></div>
+
+            <!-- Botón de eliminación SOLO para administradores -->
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'eliminar_ingreso' ingreso.id %}" class="btn-eliminar"
+                   onclick="return confirm('¿Estás seguro de que deseas eliminar este ingreso?');">
+                   🗑 Eliminar
+                </a>
+            {% endif %}
         </div>
         {% empty %}
         <p>No hay ingresos registrados.</p>
@@ -182,5 +210,3 @@
     </div>
 </body>
 </html>
-
-
