@@ -70,6 +70,7 @@
             outline: none;
             background: rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 10px #00d1ff;
+            color: #000000;
         }
 
         textarea {
@@ -96,68 +97,107 @@
             box-shadow: 0 8px 25px rgba(0, 209, 255, 0.7);
         }
 
-        /* ✅ Contenedor de tarjetas */
-        .table-container {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 15px;
-        }
+/* ✅ Contenedor de tarjetas */
+.table-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 🔥 Centrado */
+}
 
-        /* Tarjetas con bordes uniformes */
-        .tarjeta {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            margin-bottom: 10px;
-            width: 100%;
-            max-width: 600px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+/* ✅ Tarjetas con bordes uniformes */
+.tarjeta {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    display: flex;
+    flex-direction: column; /* 🔥 Asegura que los elementos se alineen correctamente */
+}
 
-        .tarjeta div {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* 📌 Bordes uniformes */
-        }
+/* ✅ Estilos para cada fila dentro de la tarjeta */
+.tarjeta div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 🔥 Asegura que todo esté alineado correctamente */
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-        .tarjeta div:last-child {
-            border-bottom: none; /* 📌 Eliminar borde inferior del último campo */
-        }
+/* 🔥 Asegurar que los textos dentro de cada fila estén alineados correctamente */
+.tarjeta span {
+    font-weight: bold;
+    color: #00d1ff;
+    min-width: 150px; /* 🔥 Mantiene las etiquetas alineadas */
+}
 
-        .tarjeta span {
-            font-weight: bold;
-            color: #00d1ff;
-        }
+/* ✅ Fecha y Hora de Registro en líneas separadas */
+.fecha-hora {
+    display: flex;
+    flex-direction: column; /* 🔥 Se separan en líneas diferentes */
+}
 
-        /* ✅ Botón de eliminación */
-        .btn-eliminar {
-            display: block;
-            text-align: center;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            padding: 8px;
-            margin-top: 10px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+/* ✅ Eliminar borde inferior en el último elemento */
+.tarjeta div:last-child {
+    border-bottom: none;
+}
 
-        .btn-eliminar:hover {
-            background: darkred;
-        }
+/* ✅ Contenedor del botón */
+.botones {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
 
-        /* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
-        @media (max-width: 1024px) {
-            .tarjeta {
-                width: 95%;
-                max-width: none;
-            }
-        }
+/* ✅ Botón de eliminación ocupa TODO el ancho de la tarjeta */
+.btn-eliminar {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block; /* ✅ Ocupa todo el ancho */
+    width: 100%;
+    text-align: center;
+}
+
+/* ✅ Efecto hover */
+.btn-eliminar:hover {
+    background: darkred;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+/* ✅ Responsivo */
+@media (max-width: 768px) {
+    .tarjeta {
+        padding: 10px;
+        max-width: 90%;
+    }
+    .btn-eliminar {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* ✅ Convertir la tabla en tarjetas desde tablets (≤ 1024px) */
+@media (max-width: 1024px) {
+    .tarjeta {
+        width: 95%;
+        max-width: none;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -193,19 +233,28 @@
         {% for gasto in gastos %}
         <div class="tarjeta">
             <div><span>Fecha del Gasto:</span> <p>{{ gasto.fecha }}</p></div>
-            <div><span>Fecha de Registro:</span> <p>{{ gasto.fecha_registro }}</p></div>
+            <div>
+                <span>Fecha de Registro:</span>
+                <p>{{ gasto.fecha_registro|date:"d M Y" }}</p> <!-- 📌 Solo muestra la fecha -->
+            </div>
+            <div>
+                <span>Hora de Registro:</span>
+                <p>{{ gasto.fecha_registro|time:"H:i" }}</p> <!-- 📌 Solo muestra la hora -->
+            </div>
             <div><span>Categoría:</span> <p>{{ gasto.categoria }}</p></div>
-            <div><span>Monto:</span> <p>{{ gasto.monto }}</p></div>
+            <div><span>Monto:</span> <p>${{ gasto.monto }}</p></div>
             <div><span>Descripción:</span> <p>{{ gasto.descripcion }}</p></div>
-
-            <!-- Botón de eliminación SOLO para administradores -->
+        
+            <!-- Botón de eliminación centrado y ancho completo -->
             {% if user.is_authenticated and user.is_staff %}
-                <a href="{% url 'eliminar_gasto' gasto.id %}" class="btn-eliminar"
+                <a href="{% url 'gastos:eliminar_gasto' gasto.id %}" class="btn-eliminar"
                    onclick="return confirm('¿Estás seguro de que deseas eliminar este gasto?');">
                    🗑 Eliminar
                 </a>
             {% endif %}
         </div>
+        
+        
         {% empty %}
         <p>No hay gastos registrados.</p>
         {% endfor %}

@@ -1,18 +1,15 @@
 import os
 from pathlib import Path
 
-# Construir rutas dentro del proyecto
+# ✅ Rutas base
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Clave secreta (NO USAR EN PRODUCCIÓN)
+# ✅ Seguridad
 SECRET_KEY = 'django-insecure-5z1hu!5@*pvr88enaz!$19s1vyd7x)7l75=x7fe^5t^bycyzv^'
-
-# Modo de depuración
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
-# Aplicaciones instaladas
+# ✅ Aplicaciones instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,11 +17,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'gastos',    # ✅ App de Gastos
-    'ingresos',  # ✅ App de Ingresos
+    'gastos',   # ✅ App de gastos
+    'ingresos',  # ✅ App de ingresos
 ]
 
-# Middleware
+# ✅ Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -35,15 +32,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Configuración de URLs
+# ✅ Configuración de URLs
 ROOT_URLCONF = 'gestor_de_gastos.urls'
 
-# Configuración de Templates
+# ✅ Configuración de Plantillas
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'gestor_de_gastos', 'templates'),  # ✅ Carpeta global de plantillas
+            os.path.join(BASE_DIR, 'gestor_de_gastos', 'templates'),  # 📂 Plantillas globales
+            os.path.join(BASE_DIR, 'gastos', 'templates'),  # 📂 Plantillas de gastos
+            os.path.join(BASE_DIR, 'ingresos', 'templates'),  # 📂 Plantillas de ingresos
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -57,10 +56,10 @@ TEMPLATES = [
     },
 ]
 
-# Configuración WSGI
+# ✅ Configuración de WSGI
 WSGI_APPLICATION = 'gestor_de_gastos.wsgi.application'
 
-# Configuración de la base de datos
+# ✅ Base de Datos
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -68,7 +67,7 @@ DATABASES = {
     }
 }
 
-# Validadores de contraseñas
+# ✅ Validaciones de Seguridad
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -76,14 +75,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Configuración de idioma y zona horaria
+# ✅ Configuración de Idioma y Zona Horaria
 LANGUAGE_CODE = 'es-mx'
 TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
-# Configuración de archivos estáticos
-STATIC_URL = 'static/'
+# ✅ Archivos Estáticos
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'gestor_de_gastos', 'static'),  # 📂 Carpeta de archivos estáticos globales
+]
 
-# Configuración de archivos por defecto
+# ✅ Archivos Multimedia (para imágenes u otros archivos subidos)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ✅ Configuración de Claves Primarias
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

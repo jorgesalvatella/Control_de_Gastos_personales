@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Resultados</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        canvas {
+            background: white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Revisar Resultados</h1>
+    
+    <div class="container">
+        <form method="GET">
+            <label>Fecha inicio:</label>
+            <input type="date" name="fecha_inicio">
+            <label>Fecha fin:</label>
+            <input type="date" name="fecha_fin">
+            <label>Tipo:</label>
+            <select name="tipo">
+                <option value="">Todos</option>
+                <option value="gasto">Gasto</option>
+                <option value="ingreso">Ingreso</option>
+            </select>
+            <label>Categoría:</label>
+            <input type="text" name="categoria" placeholder="Ej: Alimentos">
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+    
+    <h2>Resumen</h2>
+    <p>Total Gastos: ${{ total_gastos }}</p>
+    <p>Total Ingresos: ${{ total_ingresos }}</p>
+    <p>Saldo: ${{ saldo_total }}</p>
+    
+    <canvas id="chartResultados" width="400" height="200"></canvas>
+    
+    <script>
+        var ctx = document.getElementById('chartResultados').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Gastos', 'Ingresos'],
+                datasets: [{
+                    label: 'Resumen financiero',
+                    data: [{{ total_gastos }}, {{ total_ingresos }}],
+                    backgroundColor: ['red', 'green']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor de Gastos e Ingresos</title>
+    <title>Gestor de Finanzas</title>
     <style>
         /* 🚀 Reset de estilos */
         * {
@@ -25,13 +25,17 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
             color: #00d4ff;
             margin-bottom: 20px;
             text-shadow: 2px 2px 10px rgba(0, 212, 255, 0.5);
+        }
+
+        p {
+            font-size: 18px;
         }
 
         /* ✅ Contenedor de opciones */
@@ -67,6 +71,12 @@
             font-size: 18px;
             font-weight: bold;
             display: block;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .tarjeta a:hover {
+            color: #00d4ff;
         }
 
         /* ✅ Responsivo */
@@ -78,19 +88,21 @@
     </style>
 </head>
 <body>
-    <h1>Bienvenido al Gestor de Finanzas</h1>
-    <p>Seleccione una opción:</p>
+    <header>
+        <h1>Bienvenido al Gestor de Finanzas</h1>
+        <p>Seleccione una opción:</p>
+    </header>
 
-    <div class="grid-container">
+    <main class="grid-container">
         <div class="tarjeta">
-            <a href="{% url 'agregar_gasto' %}">📉 Agregar Gasto</a>
+            <a href="{% url 'gastos:agregar_gasto' %}" aria-label="Agregar un gasto">📉 Agregar Gasto</a>
         </div>
         <div class="tarjeta">
-            <a href="{% url 'agregar_ingreso' %}">📈 Agregar Ingreso</a>
+            <a href="{% url 'ingresos:agregar_ingreso' %}" aria-label="Agregar un ingreso">📈 Agregar Ingreso</a>
         </div>
         <div class="tarjeta">
-            <a href="#">📊 Revisar Resultados (Próximamente)</a>
+            <a href="{% url 'gastos:revisar_resultados' %}" aria-label="Revisar resultados financieros">📊 Revisar Resultados</a>
         </div>
-    </div>
+    </main>
 </body>
 </html>
